@@ -26,7 +26,7 @@ mkdir /opt/docker
 From tomcat:8-jre8 
 
 # Maintainer
-MAINTAINER "valaxytech" 
+MAINTAINER "Srini" 
 
 # copy war file on to container 
 COPY ./webapp.war /usr/local/tomcat/webapps
@@ -35,10 +35,17 @@ COPY ./webapp.war /usr/local/tomcat/webapps
 5. Login to Jenkins console and add Docker server to execute commands from Jenkins  
 Manage Jenkins --> Configure system -->  Publish over SSH --> add Docker server and credentials
 
+Note:
+ from Docker host 
+vi /etc/ssh/sshd_config
+PasswordAuthentication yes
+#PasswordAuthentication no
+service sshd restart
+
 6. Create Jenkins job 
 
 A) Source Code Management  
- Repository : https://github.com/ValaxyTech/hello-world.git  
+ Repository : https://github.com/smuvw77/hello-world.git  
  Branches to build : */master  
 
 B) Build
@@ -52,16 +59,16 @@ C) send files or execute commands over SSH
  Remote directory	: `//opt//docker`  
  Exec command[s]	: 
   ```sh
-  docker stop valaxy_demo;
-  docker rm -f valaxy_demo;
-  docker image rm -f valaxy_demo;
+  docker stop softq_demo;
+  docker rm -f softq_demo;
+  docker image rm -f softq_demo;
   cd /opt/docker;
-  docker build -t valaxy_demo .
+  docker build -t softq_demo .
   ```
 
 D) send files or execute commands over SSH  
   Name: `docker_host`  
-  Exec command	: `docker run -d --name valaxy_demo -p 8090:8080 valaxy_demo`  
+  Exec command	: `docker run -d --name softq_demo -p 8090:8080 softq_demo`  
 
 7. Login to Docker host and check images and containers. (no images and containers)
 
@@ -72,4 +79,5 @@ D) send files or execute commands over SSH
 10. Access web application from browser which is running on container
 ```
 <docker_host_Public_IP>:8090
+<docker_host_Public_IP>:8090/webapp
 ```
