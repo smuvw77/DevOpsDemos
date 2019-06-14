@@ -42,6 +42,8 @@ PasswordAuthentication yes
 #PasswordAuthentication no
 service sshd restart
 
+chown -R dockeradmin:dockeradmin /opt/docker
+
 6. Create Jenkins job 
 
 A) Source Code Management  
